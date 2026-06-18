@@ -1,0 +1,40 @@
+name: Re-deploy ECS
+on:
+  # push:
+  #   branches: [ "main" ]
+  workflow_dispatch:  # manual triggering
+    inputs:
+      environment:
+        type: choice
+        description: Environment to deploy to
+        options:
+        - demo
+        - staging
+        - prod
+
+env:
+  DEPLOYMENT_ENV: ${{ github.event.inputs.environment || 'demo' }}
+  AWS_REGION: us-east-1
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+
+    - name: Log in to AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Force new ECS deployment
+      run: |
+        aws ecs update-service \
+          --cluster $DEPLOYMENT_ENV-react-zustand-django-template-cluster \
+          --service $DEPLOYMENT_ENV-react-zustand-django-template-service \
+          --force-new-deployment \
+          --region $AWS_REGION
