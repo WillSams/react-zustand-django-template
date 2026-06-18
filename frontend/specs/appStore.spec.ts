@@ -30,12 +30,12 @@ describe('appStore', () => {
     const fetchPromise = useAppStore.getState().fetchStatus();
     expect(useAppStore.getState().loading).toBe(true);
 
-    resolvePromise({ data: { status: 'Success', result: 'ok' } });
+    resolvePromise({ data: { message: 'ok' } });
     await fetchPromise;
   });
 
   it('stores the API result on success', async () => {
-    mockedGet.mockResolvedValue({ data: { status: 'Success', result: 'hello from api' } });
+    mockedGet.mockResolvedValue({ data: { message: 'hello from api' } });
 
     await useAppStore.getState().fetchStatus();
 
