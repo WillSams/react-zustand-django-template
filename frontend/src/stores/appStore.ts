@@ -5,7 +5,7 @@ interface AppState {
   message: string | null;
   loading: boolean;
   error: string | null;
-  fetchStatus: () => Promise<void>;
+  fetchAbout: () => Promise<void>;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -13,7 +13,7 @@ export const useAppStore = create<AppState>((set) => ({
   loading: false,
   error: null,
 
-  fetchStatus: async () => {
+  fetchAbout: async () => {
     set({ loading: true, error: null });
     try {
       const { data } = await apiClient.get<{ message: string }>('/about');

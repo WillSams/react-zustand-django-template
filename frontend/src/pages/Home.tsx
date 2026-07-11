@@ -3,11 +3,11 @@ import { Alert, Box, CircularProgress, Container, Typography } from '@mui/materi
 import { useAppStore } from '../stores/appStore';
 
 export default function Home() {
-  const { message, loading, error, fetchStatus } = useAppStore();
+  const { message, loading, error, fetchAbout } = useAppStore();
 
   useEffect(() => {
-    fetchStatus();
-  }, [fetchStatus]);
+    fetchAbout();
+  }, [fetchAbout]);
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>

@@ -19,7 +19,7 @@ vi.mock('../src/stores/appStore', async (importOriginal) => {
       message: null,
       loading: false,
       error: null,
-      fetchStatus: vi.fn(),
+      fetchAbout: vi.fn(),
     })),
   };
 });
@@ -32,7 +32,7 @@ describe('App routing', () => {
       message: null,
       loading: false,
       error: null,
-      fetchStatus: vi.fn(),
+      fetchAbout: vi.fn(),
     });
 
     renderWithProviders(

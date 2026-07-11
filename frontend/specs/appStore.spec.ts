@@ -27,7 +27,7 @@ describe('appStore', () => {
     let resolvePromise!: (value: unknown) => void;
     mockedGet.mockReturnValue(new Promise((res) => (resolvePromise = res)));
 
-    const fetchPromise = useAppStore.getState().fetchStatus();
+    const fetchPromise = useAppStore.getState().fetchAbout();
     expect(useAppStore.getState().loading).toBe(true);
 
     resolvePromise({ data: { message: 'ok' } });
@@ -37,7 +37,7 @@ describe('appStore', () => {
   it('stores the API result on success', async () => {
     mockedGet.mockResolvedValue({ data: { message: 'hello from api' } });
 
-    await useAppStore.getState().fetchStatus();
+    await useAppStore.getState().fetchAbout();
 
     const { message, loading, error } = useAppStore.getState();
     expect(message).toBe('hello from api');
@@ -48,7 +48,7 @@ describe('appStore', () => {
   it('stores error message on failure', async () => {
     mockedGet.mockRejectedValue(new Error('Network error'));
 
-    await useAppStore.getState().fetchStatus();
+    await useAppStore.getState().fetchAbout();
 
     const { message, loading, error } = useAppStore.getState();
     expect(error).toBe('Network error');
